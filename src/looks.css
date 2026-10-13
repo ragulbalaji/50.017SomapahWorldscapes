@@ -74,7 +74,7 @@ body {
   transition: width 300ms;
 }
 
-.lil-gui.root.closed {
+.lil-gui.lil-root.lil-closed {
   width: 230px;
 }
 

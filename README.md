@@ -13,20 +13,27 @@ Try the live demo @ http://ragulbalaji.com/worldscapes/
 
 ## Instructions
 
-First, change directory to the `webserver` directory:
-
-```bash
-cd webserver
-```
-
-Then, install all of the required dependencies:
+Requires Node.js 20.19+ or 22.12+. Install the dependencies:
 
 ```bash
 npm install
 ```
 
-Finally, run the server:
+Run the dev server at http://localhost:5173/:
 
 ```bash
-npm start
+npm run dev
+```
+
+Build the static site into `dist/`, then deploy by uploading `dist/` (relative URLs, so any sub-path works):
+
+```bash
+npm run build
+npm run preview # serves dist/ at http://localhost:4173/
+```
+
+Run the tests:
+
+```bash
+npm test
 ```
