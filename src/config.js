@@ -56,6 +56,7 @@ export const PLAYER_SPEED_AIR = 30
 export const CREATIVE_SPEED_FACTOR = 20
 export const NIGHT_TIME_FACTOR = 2500
 export const SUN_DISTANCE = 200 // sun distance from the player
+export const SHADOW_HALF_SIZE = 80 // half extent of the sun's shadow camera
 export const [LOWER_Y, UPPER_Y] = [0, 250] // vertical world bounds
 export const [LOWER_X, UPPER_X] = [-1e14, 1e14] // x-axis world bounds
 export const [LOWER_Z, UPPER_Z] = [-1e14, 1e14] // z-axis world bounds

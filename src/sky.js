@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { PARAMETERS, NIGHT_TIME_FACTOR, SUN_DISTANCE } from './config.js'
+import { PARAMETERS, NIGHT_TIME_FACTOR, SUN_DISTANCE, SHADOW_HALF_SIZE } from './config.js'
 
 const DEG2RAD = Math.PI / 180
 
@@ -8,19 +8,22 @@ export function createSky (scene) {
   const ambient = new THREE.AmbientLight()
   scene.add(ambient)
 
+  // The sun and its target follow the player (see update), so the shadow
+  // camera always covers a SHADOW_HALF_SIZE square around the player.
   const sun = new THREE.DirectionalLight()
   sun.castShadow = true
-  sun.shadow.camera.left = -15
-  sun.shadow.camera.right = 15
-  sun.shadow.camera.top = 15
-  sun.shadow.camera.bottom = -15
-  sun.shadow.camera.near = 2
-  sun.shadow.camera.far = 50
-  sun.shadow.mapSize.set(1024, 1024)
+  sun.shadow.camera.left = -SHADOW_HALF_SIZE
+  sun.shadow.camera.bottom = -SHADOW_HALF_SIZE
+  sun.shadow.camera.right = SHADOW_HALF_SIZE
+  sun.shadow.camera.top = SHADOW_HALF_SIZE
+  sun.shadow.camera.near = 1
+  sun.shadow.camera.far = 2 * SUN_DISTANCE
+  sun.shadow.camera.updateProjectionMatrix()
+  sun.shadow.mapSize.set(2048, 2048)
+  sun.shadow.bias = -0.0005
   scene.add(sun, sun.target)
 
   const moon = new THREE.DirectionalLight(PARAMETERS.directional_light_color)
-  moon.castShadow = true
   moon.position.set(100, 100, 0)
   scene.add(moon)
 
