@@ -5,6 +5,7 @@ Try the live demo @ http://ragulbalaji.com/worldscapes/
 ## Game Controls
 
 - Click anywhere to start
+- The URL hash carries the world seed (e.g. `#seed=1234`), so you can share worlds by link
 - Press `ESC` to pause the game
 - **Movement:** `W` `A` `S` `D` or `↑` `←` `↓` `→`
 - **Jump:** `Spacebar`

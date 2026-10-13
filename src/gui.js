@@ -1,5 +1,6 @@
 import GUI from 'lil-gui'
 import { PARAMETERS, MATERIAL_PARAMETERS, HUD } from './config.js'
+import { writeSeed } from './seed-url.js'
 
 export function createGui ({ chunks, materials, textures }) {
   const gui = new GUI({ width: 390 })
@@ -41,10 +42,17 @@ export function createGui ({ chunks, materials, textures }) {
     }
   }
 
-  controlsFolder
-    .add(PARAMETERS, 'world_seed', Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, 1)
+  const seedCtrl = controlsFolder
+    .add(PARAMETERS, 'world_seed')
+    .step(1)
     .name('World Seed')
-    .onFinishChange(reset)
+    .onFinishChange(v => {
+      const s = Math.trunc(v) >>> 0
+      PARAMETERS.world_seed = s
+      seedCtrl.updateDisplay()
+      writeSeed(s)
+      chunks.reset()
+    })
   controlsFolder
     .add(PARAMETERS, 'chunk_size', 16, 256, 1)
     .name('Chunk Size')
@@ -158,6 +166,7 @@ export function createGui ({ chunks, materials, textures }) {
   handleMaterialSpecificControllers(PARAMETERS.chunk_material)
 
   return {
+    refreshSeed: () => seedCtrl.updateDisplay(),
     // Fold the parameter folders away while playing; HUD stays as it is.
     setFoldersOpen (open) {
       if (gui._closed) return

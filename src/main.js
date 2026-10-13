@@ -9,6 +9,7 @@ import { ChunkManager } from './chunks.js'
 import { createSky } from './sky.js'
 import { createPlayer } from './player.js'
 import { createGui } from './gui.js'
+import { parseSeed, writeSeed, randomSeed } from './seed-url.js'
 
 // Raw colors + sRGB output, as in three r134: keeps the 2022 palette
 THREE.ColorManagement.enabled = false
@@ -56,10 +57,21 @@ if (assets) start(...assets)
 
 function start (textures, decorations) {
   const materials = createMaterials(textures)
+  PARAMETERS.world_seed = parseSeed(window.location.hash) ?? randomSeed()
+  writeSeed(PARAMETERS.world_seed)
   const chunks = new ChunkManager(scene, materials[PARAMETERS.chunk_material], decorations)
   const sky = createSky(scene)
   const player = createPlayer(camera, chunks)
   const gui = createGui({ chunks, materials, textures })
+
+  window.addEventListener('hashchange', function () {
+    const s = parseSeed(window.location.hash)
+    if (s !== null && s !== PARAMETERS.world_seed) {
+      PARAMETERS.world_seed = s
+      gui.refreshSeed()
+      chunks.reset()
+    }
+  })
 
   title.textContent = 'Click to Focus!'
 

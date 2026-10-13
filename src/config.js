@@ -2,7 +2,7 @@
 // Constants (no DOM or three.js imports: shared with tests and workers)
 
 export const PARAMETERS = {
-  world_seed: Math.round(Math.random() * 4206969),
+  world_seed: 0,
   chunk_size: 96,
   gen_depth: 3,
   chunk_material: 'Phong Material',
