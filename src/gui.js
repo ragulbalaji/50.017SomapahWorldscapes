@@ -126,6 +126,33 @@ export function createGui ({ chunks, materials, textures }) {
     .name('Tree B Threshold')
     .onFinishChange(reset)
 
+  const biomesFolder = gui.addFolder('Biomes')
+
+  biomesFolder
+    .add(PARAMETERS, 'biome_cell_size', 64, 1024, 1)
+    .name('Biome Cell Size')
+    .onFinishChange(reset)
+  biomesFolder
+    .add(PARAMETERS, 'biome_warp', 0, 256, 1)
+    .name('Biome Border Warp')
+    .onFinishChange(reset)
+  biomesFolder
+    .add(PARAMETERS, 'biome_blend', 0, 128, 1)
+    .name('Biome Blend')
+    .onFinishChange(reset)
+  biomesFolder
+    .add(PARAMETERS, 'terrace_fraction', 0, 1, 0.01)
+    .name('Terrace Fraction')
+    .onFinishChange(reset)
+  biomesFolder
+    .add(PARAMETERS, 'terrace_step', 1, 32, 0.5)
+    .name('Terrace Step')
+    .onFinishChange(reset)
+  biomesFolder
+    .add(PARAMETERS, 'terrace_ramp', 0.05, 1, 0.01)
+    .name('Terrace Ramp')
+    .onFinishChange(reset)
+
   // Lights, sky and fog are applied every frame by sky.update()
   const lightsFolder = gui.addFolder('Lights')
 
